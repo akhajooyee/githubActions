@@ -1,5 +1,4 @@
 name: HelloAction
-
 on:
   push:
     branches:
