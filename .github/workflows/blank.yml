@@ -1,58 +1,37 @@
-name: HelloAction
+name: Example Workflow
+
 on:
   push:
     branches:
-      - master
-  # pull_request:
-  #   types: [closed]
-
-env:
-  name: Shima
+      - main
+  pull_request:
+    types: [opened, synchronize]
 
 jobs:
-  dump:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Dump GitHub context
-        env:
-          GITHUBCONTEXT: ${{toJson(github) }}
-        run: echo "$GITHUBCONTEXT"
-
-  pull_request_only:
-    runs-on: ubuntu-latest
-    env:
-      name: Alireza
-    needs: build
-    steps:
-      - uses: actions/checkout@v2
-      - name: Display PR information
-        run: |
-          if [ "${{ github.event_name }}" == "push" ]; then
-            echo "This is a push event."
-            echo "Committer: ${{ github.actor }}"
-            echo "Commit Author: ${{ github.event.head_commit.author.name }}"
-            echo "Commit Author Email: ${{ github.event.head_commit.author.email }}"
-            echo "Commit Message: ${{ github.event.head_commit.message }}"
-          elif [ "${{ github.event_name }}" == "pull_request" ]; then
-            echo "This is a pull request event."
-            echo "Pull Request Author: ${{ github.event.pull_request.user.login }}"
-            echo "Pull Request Title: ${{ github.event.pull_request.title }}"
-            echo "Pull Request Number: ${{ github.event.pull_request.number }}"
-          elif [ "${{ github.event_name }}" == "schedule" ]; then
-            echo "This is a scheduled event."
-          # Add handling for scheduled events if needed
-          else
-            echo "This is a commit-only event."
-          # Add handling for commit-only events if needed
-          fi
-
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
-      - name: Run a one-line script
-        run: echo Hello, $name!
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Display information based on event type
+      run: |
+        if [ "${{ github.event_name }}" == "push" ]; then
+          echo "This is a push event."
+          echo "Committer: ${{ github.actor }}"
+          echo "Commit Author: ${{ github.event.head_commit.author.name }}"
+          echo "Commit Author Email: ${{ github.event.head_commit.author.email }}"
+          echo "Commit Message: ${{ github.event.head_commit.message }}"
+        elif [ "${{ github.event_name }}" == "pull_request" ]; then
+          echo "This is a pull request event."
+          echo "Pull Request Author: ${{ github.event.pull_request.user.login }}"
+          echo "Pull Request Title: ${{ github.event.pull_request.title }}"
+          echo "Pull Request Number: ${{ github.event.pull_request.number }}"
+        elif [ "${{ github.event_name }}" == "schedule" ]; then
+          echo "This is a scheduled event."
+          # Add handling for scheduled events if needed
+        else
+          echo "This is a commit-only event."
+          # Add handling for commit-only events if needed
+        fi
