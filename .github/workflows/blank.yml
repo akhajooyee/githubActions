@@ -20,7 +20,7 @@ jobs:
 
   pull_request_only:
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
+    # if: github.event_name == 'pull_request'
     env:
       name: Alireza
     needs: build
