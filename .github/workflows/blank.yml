@@ -20,14 +20,12 @@ jobs:
 
   pull_request_only:
     runs-on: ubuntu-latest
-    # if: github.event_name == 'pull_request'
     env:
       name: Alireza
     needs: build
     steps:
       - uses: actions/checkout@v2
       - name: Display PR information
-        # if: github.event_name == 'push'
         run: |
           if [ "${{ github.event_name }}" == "push" ]; then
             echo "This is a push event."
@@ -40,8 +38,12 @@ jobs:
             echo "Pull Request Author: ${{ github.event.pull_request.user.login }}"
             echo "Pull Request Title: ${{ github.event.pull_request.title }}"
             echo "Pull Request Number: ${{ github.event.pull_request.number }}"
+          elif [ "${{ github.event_name }}" == "schedule" ]; then
+            echo "This is a scheduled event."
+          # Add handling for scheduled events if needed
           else
-            echo "Unsupported event type."
+            echo "This is a commit-only event."
+          # Add handling for commit-only events if needed
           fi
 
   build:
