@@ -20,6 +20,13 @@ on:
 env:
   name: Shima
 jobs:
+  dump:
+    runs-on: ubuntu-latest
+    steps:
+      -env:
+        GITHUBCONTEXT: ${{ toJson(github)}}
+      run:
+        echo "GITHUBCONTEXT"
   pull_request_only:
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
@@ -32,7 +39,11 @@ jobs:
   
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        run: echo Hello, $name!
+        run: |
+          echo Hello, $name!
+          echo Actor: ${{github.actor}}
+          echo Committed By:: ${{ github.events.commits[0].autor.name
+          
   
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
