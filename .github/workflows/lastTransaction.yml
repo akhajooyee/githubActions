@@ -1,0 +1,27 @@
+name: Example Workflow
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Display commit information
+      run: |
+        # Get the last commit information
+        COMMIT_SHA=$(git rev-parse HEAD)
+        COMMIT_AUTHOR=$(git --no-pager show -s --format='%an' $COMMIT_SHA)
+        COMMIT_EMAIL=$(git --no-pager show -s --format='%ae' $COMMIT_SHA)
+        COMMIT_MESSAGE=$(git --no-pager show -s --format='%B' $COMMIT_SHA)
+
+        echo "Last Commit Author: $COMMIT_AUTHOR"
+        echo "Last Commit Author Email: $COMMIT_EMAIL"
+        echo "Last Commit Message: $COMMIT_MESSAGE"
