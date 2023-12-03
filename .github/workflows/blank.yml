@@ -1,4 +1,4 @@
-name: githubActions
+name: Hello Action
 
 on:
   push:
@@ -6,7 +6,6 @@ on:
       - master
   pull_request:
     types: [closed]
-  workflow_dispatch:
 
 env:
   name: Shima
@@ -17,7 +16,7 @@ jobs:
     steps:
       - name: Dump GitHub context
         env:
-          GITHUBCONTEXT: ${{ toJson(github) }}
+          GITHUBCONTEXT: ${{toJson(github) }}
         run: echo "$GITHUBCONTEXT"
 
   pull_request_only:
