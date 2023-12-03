@@ -31,6 +31,9 @@ jobs:
           echo Hello, $name!
           echo Actor: ${{ github.actor }}
           echo Committed By: HERE ${{ github.event.commits[0].author.name }}
+          echo "Commit Author: ${{ github.event.head_commit.author.name }}"
+          echo "Commit Author Email: ${{ github.event.head_commit.author.email }}"
+          echo "Commit Message: ${{ github.event.head_commit.message }}"
 
   build:
     runs-on: ubuntu-latest
