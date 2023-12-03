@@ -17,6 +17,7 @@ jobs:
 
     - name: Display information based on event type
       run: |
+        echo the First commit
         if [ "${{ github.event_name }}" == "push" ]; then
           echo "This is a push event."
           echo "Committer: ${{ github.actor }}"
