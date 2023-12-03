@@ -3,8 +3,8 @@ on:
   push:
     branches:
       - master
-  pull_request:
-    types: [closed]
+  # pull_request:
+  #   types: [closed]
 
 env:
   name: Shima
