@@ -27,7 +27,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Display PR information
-        if: github.event_name == 'push'
+        # if: github.event_name == 'push'
         run: |
           if [ "${{ github.event_name }}" == "push" ]; then
             echo "This is a push event."
