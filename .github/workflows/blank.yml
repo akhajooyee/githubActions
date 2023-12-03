@@ -30,7 +30,7 @@ jobs:
         run: |
           echo Hello, $name!
           echo Actor: ${{ github.actor }}
-          echo Committed By: ${{ github.event.commits[0].author.name }}
+          echo Committed By: HERE ${{ github.event.commits[0].author.name }}
 
   build:
     runs-on: ubuntu-latest
